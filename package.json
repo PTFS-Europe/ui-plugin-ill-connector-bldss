@@ -1,0 +1,65 @@
+{
+  "name": "@ptfs-europe/plugin-ill-connector-bldss",
+  "version": "1.0.0",
+  "description": "A plugin that provides UI for the BLDSS ILL connector",
+  "main": "src/index.js",
+  "repository": "PTFS-Europe/ui-plugin-ill-connector-bldss",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=12.21.0"
+  },
+  "scripts": {
+    "start": "stripes serve",
+    "build": "stripes build --output ./output",
+    "test": "jest --verbose",
+    "test:ci": "jest --silent --ci --coverage",
+    "lint": "eslint .",
+    "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-plugin-cla-permissions-check ./translations/ui-plugin-ill-connector-bldss/compiled"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.0.0",
+    "@folio/eslint-config-stripes": "^6.0.0",
+    "@folio/stripes-cli": "^2.4.0 || ^2.4.0",
+    "@formatjs/cli": "^4.2.7",
+    "@testing-library/jest-dom": "^5.11.10",
+    "@testing-library/react": "^11.2.5",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.32.0",
+    "eslint-plugin-jest": "^24.3.6",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.6.3",
+    "jest-junit": "^12.0.0",
+    "react-dom": "^17.0.2"
+  },
+  "dependencies": {
+    "@ptfs-europe/ill-components": "file:../ui-ill-components",
+    "prop-types": "^15.6.0"
+  },
+  "peerDependencies": {
+    "@folio/stripes": "^7.0.0",
+    "react": "*",
+    "react-intl": "^5.8.0",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0"
+  },
+  "stripes": {
+    "actsAs": [
+      "handler",
+      "settings"
+    ],
+    "handlerName": "illHandler",
+    "displayName": "ui-plugin-ill-connector-bldss.meta.title",
+    "hasSettings": true,
+    "permissionSets": [
+      {
+        "permissionName": "settings.plugin-ui-connector-bldss.enabled",
+        "displayName": "Settings: BLDSS connector - display settings pages",
+        "subPermissions": [
+          "settings.enabled"
+        ],
+        "visible": true
+      }
+    ]
+  }
+}
