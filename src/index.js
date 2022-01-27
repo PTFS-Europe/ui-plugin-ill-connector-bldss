@@ -14,7 +14,7 @@ const Connector = (props) => {
 
   // Call the passed function to set the name of an enclosing component
   useEffect(() => {
-    if (data.hasOwnProperty('updateConnectorname')) {
+    if (data.hasOwnProperty('updateConnectorName')) {
       data.updateConnectorName({
         id: data.connector.id,
         name: intl.formatMessage({ id: 'ui-plugin-ill-connector-bldss.meta.title' })
