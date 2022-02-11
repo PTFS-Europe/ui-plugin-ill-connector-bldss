@@ -1,3 +1,11 @@
 {
-  "meta.title": "British Library Document Supply"
+  "meta.title": "British Library Document Supply",
+  "createRequest.itemDetails": "Item details",
+  "createRequest.serviceDetails": "Service details",
+  "formats.speeds": "Available speeds",
+  "formats.qualities": "Available qualities",
+  "formats.selectFormat": "Choose this format",
+  "formats.selectedFormat": "Selected format",
+  "formats.copyrightFee": "Copyright fee",
+  "formats.loanRenewalCost": "Loan renewal cost"
 }

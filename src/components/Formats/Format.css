@@ -1,0 +1,30 @@
+.headlineMargin {
+    margin-top: 1rem;
+}
+
+.cardHeader {
+    text-transform: uppercase;
+}
+
+.button {
+    margin-bottom: 0;
+}
+
+.formatInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.formatInfoItem {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-bottom: 3px;
+}
+
+.formatInfoItem:last-child {
+    margin-bottom: 0;
+}

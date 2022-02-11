@@ -21,6 +21,8 @@ import {
   DisplayResult
 } from '@ptfs-europe/ill-components';
 
+import { Formats } from '../Formats';
+
 const CreateRequest = (props) => {
   const { submission, connector } = props.data;
   const [modalOpen, setModalOpen] = useState(false);
@@ -60,16 +62,23 @@ const CreateRequest = (props) => {
           size="large"
         >
           <Tabs>
-            <TabList label="Create request">
-              <Tab>Item details</Tab>
-              <Tab>Service details</Tab>
-              <Tab>Format details</Tab>
+            <TabList ariaLabel="Create request">
+              <Tab>
+                <FormattedMessage id="ui-plugin-ill-connector-bldss.createRequest.itemDetails" />
+              </Tab>
+              <Tab>
+                <FormattedMessage id="ui-plugin-ill-connector-bldss.createRequest.serviceDetails" />
+              </Tab>
             </TabList>
             <TabPanel>
               <DisplayResult result={selected} />
             </TabPanel>
-            <TabPanel><>Panel 1</></TabPanel>
-            <TabPanel><>Panel 2</></TabPanel>
+            <TabPanel>
+              <Formats
+                connector={connector}
+                setCanSubmit={setCanSubmit}
+              />
+            </TabPanel>
           </Tabs>
         </Modal>
       )}
