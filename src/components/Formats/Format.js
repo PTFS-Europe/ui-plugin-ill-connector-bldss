@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { useIntl, FormattedMessage, FormattedNumber } from 'react-intl';
+import { useIntl, FormattedMessage } from 'react-intl';
 
 import {
     Button,
@@ -21,10 +21,12 @@ const Format = ({
     formatLookup,   // An array of all format IDs and names
     qualityLookup,  // An array of all quality IDs and names
     speedLookup,    // An array of all speed IDs and names
-    setSelectedFormat,
-    selectedFormat,
+    setSelectedService, // A setter for the selected options once a format is selected
+    selectedService, // A object containing the selected format, speed and quality
     miscInfo        // Misc info pertaining to the service
 }) => {
+    if (!formatLookup || !qualityLookup || !speedLookup) return null;
+
     const intl = useIntl();
 
     const [preppedFormats, setPreppedFormats] = useState();
@@ -62,7 +64,7 @@ const Format = ({
     // Take an array of { key: 'abc', content: 'xyz'} objects
     // and return a { abc: 'xyz' } object
     const arrayToObject = (arr) => {
-        return arr.reduce((acc, curr) => {
+        return !arr ? {} : arr.reduce((acc, curr) => {
             return { ...acc, [curr.key]: curr.content };
         }, {});
     };
@@ -75,17 +77,26 @@ const Format = ({
         ).filter(x => x); // Remove any null entries
     };
 
+    // Pass details of the selected service back
+    const selectService = () => {
+        setSelectedService({
+            format: format.id,
+            speed: selectedSpeed,
+            quality: selectedQuality
+        });
+    };
+
     // Return the correct message depending on whether this format
     // is selected or not
-    const selectMessage = selectedFormat === format.id ?
+    const selectMessage = selectedService.format === format.id ?
         intl.formatMessage({ id: 'ui-plugin-ill-connector-bldss.formats.selectedFormat' }) :
         intl.formatMessage({ id: 'ui-plugin-ill-connector-bldss.formats.selectFormat' });
 
     // Return the "Choose this format" button
     const chooseFormat = (
         <Button
-            buttonStyle={selectedFormat === format.id ? 'primary' : 'default'}
-            onClick={() => setSelectedFormat(format.id)}
+            buttonStyle={selectedService.format === format.id ? 'primary' : 'default'}
+            onClick={selectService}
             buttonClass={css.button}
         >
             {selectMessage} - {intl.formatNumber(selectedPrice, { style: 'currency', currency: miscInfo.currency })}
@@ -168,11 +179,11 @@ const Format = ({
 
 Format.propTypes = {
     format: PropTypes.object.isRequired,
-    formatLookup: PropTypes.array.isRequired,
-    qualityLookup: PropTypes.array.isRequired,
-    speedLookup: PropTypes.array.isRequired,
-    setSelectedFormat: PropTypes.func.isRequired,
-    selectedFormat: PropTypes.number.isRequired,
+    formatLookup: PropTypes.array,
+    qualityLookup: PropTypes.array,
+    speedLookup: PropTypes.array,
+    setSelectedService: PropTypes.func.isRequired,
+    selectedService: PropTypes.object.isRequired,
     miscInfo: PropTypes.object.isRequired
 };
 

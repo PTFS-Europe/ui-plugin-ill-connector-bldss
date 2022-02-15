@@ -28,13 +28,28 @@ const CreateRequest = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selected, setSelected] = useState();
   const [canSubmit, setCanSubmit] = useState(false);
+  const [request, setRequest] = useState({ submission });
 
   const intl = useIntl();
 
+  // When a search result is selected, act accordingly
   const onResultClick = (event, selectedRow) => {
     setSelected(selectedRow);
     setModalOpen(true);
   }
+
+  // Update the arbitrary state object that can be contributed
+  // to by child components
+  const updateRequest = (prop, data) => {
+    setRequest(
+      prev => ({ ...prev, [prop]: { ...data } })
+    );
+  }
+
+  const placeRequest = () => {
+    console.log('Placing request');
+    console.log(request);
+  };
 
   const footer = (
     <ModalFooter>
@@ -42,6 +57,7 @@ const CreateRequest = (props) => {
         buttonStyle="primary"
         disabled={!canSubmit}
         marginBottom0
+        onClick={placeRequest}
       >
         <FormattedMessage id="ui-ill-components.button.placeRequest" />
       </Button>
@@ -77,6 +93,7 @@ const CreateRequest = (props) => {
               <Formats
                 connector={connector}
                 setCanSubmit={setCanSubmit}
+                updateRequest={updateRequest}
               />
             </TabPanel>
           </Tabs>

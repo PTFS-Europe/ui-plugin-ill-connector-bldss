@@ -8,7 +8,8 @@ import Format from './Format';
 
 const Formats = ({
     connector,
-    setCanSubmit
+    setCanSubmit,
+    updateRequest
 }) => {
     const {
         prices,
@@ -18,11 +19,20 @@ const Formats = ({
         isFetching
     } = useServices({ connector });
 
-    const [selectedFormat, setSelectedFormat] = useState(-1);
+    const [selectedService, setSelectedService] = useState({});
 
-    // Update the state of the submittability based on whether
-    // we have a selected format
-    useEffect(() => setCanSubmit(selectedFormat > 0), [selectedFormat]);
+    // Update the state of the submittability and what the selected
+    // service is based on whether we have a selected service
+    useEffect(
+        () => {
+            const canSubmit = Object.keys(selectedService).length > 0;
+            setCanSubmit(canSubmit);
+            if (canSubmit) {
+                updateRequest('services', selectedService);
+            }
+        },
+        [selectedService]
+    );
 
     // We are only interested in service "1"
     const preparePrices = useMemo(() => {
@@ -62,8 +72,8 @@ const Formats = ({
                     formatLookup={formats}
                     qualityLookup={qualities}
                     speedLookup={speeds}
-                    setSelectedFormat={setSelectedFormat}
-                    selectedFormat={selectedFormat}
+                    setSelectedService={setSelectedService}
+                    selectedService={selectedService}
                     miscInfo={miscInfo}
                 />
             ))}
@@ -72,7 +82,8 @@ const Formats = ({
 
 Formats.propTypes = {
     connector: PropTypes.object.isRequired,
-    setCanSubmit: PropTypes.func.isRequired
+    setCanSubmit: PropTypes.func.isRequired,
+    updateRequest: PropTypes.func.isRequired
 };
 
 export default Formats;

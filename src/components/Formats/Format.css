@@ -4,10 +4,11 @@
 
 .cardHeader {
     text-transform: uppercase;
+    min-height: 35px;
 }
 
 .button {
-    margin-bottom: 0;
+    margin: 0;
 }
 
 .formatInfo {
