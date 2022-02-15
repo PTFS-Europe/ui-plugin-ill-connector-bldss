@@ -10,7 +10,7 @@ const useServices = ({ connector }) => {
     const [formats, setFormats] = useState();
     const [speeds, setSpeeds] = useState();
     const [qualities, setQualities] = useState();
-    const [isFetching, setIsFetching] = useState();
+    const [isFetching, setIsFetching] = useState(true);
 
     const { isFetching: isPricesFetching, data: dataPrices } = useConnector({
         connector: connector.id,
