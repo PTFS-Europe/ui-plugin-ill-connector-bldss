@@ -6,8 +6,13 @@ import { useIntl, FormattedMessage } from 'react-intl';
 import {
   Button,
   Modal,
-  ModalFooter
+  ModalFooter,
+  Loading
 } from '@folio/stripes/components';
+
+import {
+  useShowCallout
+} from '@folio/stripes-acq-components';
 
 import {
   Tabs,
@@ -21,34 +26,81 @@ import {
   DisplayResult
 } from '@ptfs-europe/ill-components';
 
+import { useIllRaMutation } from '../../common/hooks/useIllRaApi';
+import { useConnectorMutation } from '../../common/hooks/useConnectorApi';
+
 import { Formats } from '../Formats';
 
 const CreateRequest = (props) => {
   const { submission, connector } = props.data;
   const [modalOpen, setModalOpen] = useState(false);
-  const [selected, setSelected] = useState();
+  const [selectedResult, setSelectedResult] = useState();
   const [canSubmit, setCanSubmit] = useState(false);
-  const [request, setRequest] = useState({ submission });
+  const [requestMetadata, setRequestMetadata] = useState();
+  const [mutating, setMutating] = useState(false);
+
+  const showCallout = useShowCallout();
 
   const intl = useIntl();
 
+  const { mutate: createLocalRequest } = useIllRaMutation({
+    endpoint: 'requests'
+  });
+
+  const { mutate: createSupplierRequest } = useConnectorMutation({
+    endpoint: 'action',
+    method: 'post',
+    connectorId: connector.id
+  });
+
   // When a search result is selected, act accordingly
   const onResultClick = (event, selectedRow) => {
-    setSelected(selectedRow);
+    setSelectedResult(selectedRow);
     setModalOpen(true);
   }
 
   // Update the arbitrary state object that can be contributed
   // to by child components
-  const updateRequest = (prop, data) => {
-    setRequest(
+  const updateRequestMetadata = (prop, data) => {
+    setRequestMetadata(
       prev => ({ ...prev, [prop]: { ...data } })
     );
   }
 
   const placeRequest = () => {
-    console.log('Placing request');
-    console.log(request);
+    createLocalRequest({
+      submissionId: submission.id,
+      connectorId: connector.id,
+      supplierUid: connector.uid
+    }, {
+      onSuccess: async (data) => {
+        // We've created a local request
+        const createdRequest = await data.json();
+        // Now create a supplier request, we use our local
+        // request ID to tie them together
+        const localRequestId = createdRequest.id;
+        const payload = {
+          actionName: "submitRequest",
+          actionMetadata: JSON.stringify({
+            localRequestId,
+            requestMetadata,
+            selectedResult,
+            submission
+          })
+        };
+        setCanSubmit(false);
+        setMutating(true);
+        createSupplierRequest(payload, {
+          onSuccess: async (data) => {
+            showCallout({
+              messageId: 'ui-plugin-ill-connector-bldss.createRequest.sent',
+              type: 'success'
+            });
+            setModalOpen(false);
+          }
+        })
+      }
+    });
   };
 
   const footer = (
@@ -58,8 +110,8 @@ const CreateRequest = (props) => {
         disabled={!canSubmit}
         marginBottom0
         onClick={placeRequest}
-      >
-        <FormattedMessage id="ui-ill-components.button.placeRequest" />
+      > {mutating && <Loading />}
+        {!mutating && <FormattedMessage id="ui-ill-components.button.placeRequest" />}
       </Button>
       <Button onClick={() => setModalOpen(false)} marginBottom0>
         <FormattedMessage id="ui-ill-components.button.cancel" />
@@ -69,7 +121,7 @@ const CreateRequest = (props) => {
 
   return (
     <>
-      {selected && modalOpen && (
+      {selectedResult && modalOpen && (
         <Modal
           aria-label={intl.formatMessage({ id: "ui-ill-components.button.placeRequest" })}
           open={modalOpen}
@@ -78,7 +130,7 @@ const CreateRequest = (props) => {
           size="large"
         >
           <Tabs>
-            <TabList ariaLabel="Create request">
+            <TabList ariaLabel={intl.formatMessage({ id: "ui-ill-components.button.placeRequest" })}>
               <Tab>
                 <FormattedMessage id="ui-plugin-ill-connector-bldss.createRequest.itemDetails" />
               </Tab>
@@ -87,13 +139,13 @@ const CreateRequest = (props) => {
               </Tab>
             </TabList>
             <TabPanel>
-              <DisplayResult result={selected} />
+              <DisplayResult result={selectedResult} />
             </TabPanel>
             <TabPanel>
               <Formats
                 connector={connector}
                 setCanSubmit={setCanSubmit}
-                updateRequest={updateRequest}
+                updateRequestMetadata={updateRequestMetadata}
               />
             </TabPanel>
           </Tabs>

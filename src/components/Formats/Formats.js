@@ -9,7 +9,7 @@ import Format from './Format';
 const Formats = ({
     connector,
     setCanSubmit,
-    updateRequest
+    updateRequestMetadata
 }) => {
     const {
         prices,
@@ -28,7 +28,7 @@ const Formats = ({
             const canSubmit = Object.keys(selectedService).length > 0;
             setCanSubmit(canSubmit);
             if (canSubmit) {
-                updateRequest('services', selectedService);
+                updateRequestMetadata('services', selectedService);
             }
         },
         [selectedService]
@@ -83,7 +83,7 @@ const Formats = ({
 Formats.propTypes = {
     connector: PropTypes.object.isRequired,
     setCanSubmit: PropTypes.func.isRequired,
-    updateRequest: PropTypes.func.isRequired
+    updateRequestMetadata: PropTypes.func.isRequired
 };
 
 export default Formats;

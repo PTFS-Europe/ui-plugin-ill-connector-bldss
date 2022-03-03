@@ -1,5 +1,6 @@
 {
   "meta.title": "British Library Document Supply",
+  "createRequest.sent": "Sent request",
   "createRequest.itemDetails": "Item details",
   "createRequest.serviceDetails": "Service details",
   "formats.speeds": "Available speeds",
@@ -7,5 +8,14 @@
   "formats.selectFormat": "Choose this format",
   "formats.selectedFormat": "Selected format",
   "formats.copyrightFee": "Copyright fee",
-  "formats.loanRenewalCost": "Loan renewal cost"
+  "formats.loanRenewalCost": "Loan renewal cost",
+  "messages.supplierUpdates": "Supplier updates",
+  "messages.received": "Update received",
+  "messages.supplierRequestId": "British Library request ID",
+  "messages.reasonForMessage": "Reason for update",
+  "messages.reasonForMessage.RequestResponse": "Response to request",
+  "messages.status": "Request status",
+  "messages.status.RequestReceived": "Request received",
+  "messages.lastChange": "Request last updated",
+  "messages.expectedDeliveryDate": "Expected delivery date"
 }
