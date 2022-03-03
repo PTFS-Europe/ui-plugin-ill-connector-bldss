@@ -17,5 +17,14 @@
   "messages.status": "Request status",
   "messages.status.RequestReceived": "Request received",
   "messages.lastChange": "Request last updated",
-  "messages.expectedDeliveryDate": "Expected delivery date"
+  "messages.expectedDeliveryDate": "Expected delivery date",
+  "messages.updateMessage": "Update message",
+  "messages.updateNote": "Update note",
+  "messages.requestedFormat": "Requested format",
+  "messages.requestedSpeed": "Requested speed",
+  "messages.requestedQuality": "Requested quality",
+  "messages.totalCost": "Total cost",
+  "messages.copyrightState": "Copyright state",
+  "messages.copyrightState.CFP": "Copyright fee paid",
+  "messages.estimatedDespatchDate": "Estimated dispatch date"
 }
