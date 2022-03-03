@@ -67,7 +67,10 @@ const CreateRequest = (props) => {
     );
   }
 
+  // Create a local request, then create a supplier request
   const placeRequest = () => {
+    setCanSubmit(false);
+    setMutating(true);
     createLocalRequest({
       submissionId: submission.id,
       connectorId: connector.id,
@@ -88,8 +91,6 @@ const CreateRequest = (props) => {
             submission
           })
         };
-        setCanSubmit(false);
-        setMutating(true);
         createSupplierRequest(payload, {
           onSuccess: async (data) => {
             showCallout({

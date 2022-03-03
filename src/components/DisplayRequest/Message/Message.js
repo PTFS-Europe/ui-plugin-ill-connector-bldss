@@ -21,7 +21,6 @@ const getDate = iso => {
 };
 
 const Message = ({ message: receivedMessage }) => {
-  console.log(JSON.parse(receivedMessage.message));
   const intl = useIntl();
   const { Header, MessageInfo, StatusInfo } = JSON.parse(receivedMessage.message);
   return (
