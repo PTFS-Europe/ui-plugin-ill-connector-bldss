@@ -48,16 +48,28 @@
       "handler",
       "settings"
     ],
+    "route": "/ill-connector-bldss",
     "handlerName": "illHandler",
     "displayName": "ui-plugin-ill-connector-bldss.meta.title",
     "hasSettings": true,
     "permissionSets": [
       {
-        "permissionName": "settings.plugin-ui-connector-bldss.enabled",
+        "permissionName": "module.plugin-ill-connector-bldss.enabled",
+        "displayName": "BLDSS connector: Module is enabled",
+        "visible": true
+      },
+      {
+        "permissionName": "settings.plugin-ill-connector-bldss.enabled",
         "displayName": "Settings: BLDSS connector - display settings pages",
         "subPermissions": [
           "settings.enabled"
         ],
+        "visible": true
+      },
+      {
+        "permissionName": "settings.plugin-ill-connector-bldss.manage.api",
+        "displayName": "Settings: BLDSS connector - manage API settings",
+        "subPermissions": [],
         "visible": true
       }
     ]

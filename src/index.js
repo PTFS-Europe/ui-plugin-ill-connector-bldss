@@ -15,7 +15,7 @@ const Connector = (props) => {
 
   // Call the passed function to set the name of an enclosing component
   useEffect(() => {
-    if (data.hasOwnProperty('updateConnectorName')) {
+    if (data && data.hasOwnProperty('updateConnectorName')) {
       data.updateConnectorName({
         id: data.connector.id,
         name: intl.formatMessage({ id: 'ui-plugin-ill-connector-bldss.meta.title' })
@@ -26,15 +26,17 @@ const Connector = (props) => {
   // Determine the component we should be returning based
   // on the passed event
   let NonSettingsComp = null;
-  switch (data.event) {
-    case 'ui-ill-ra-request-create':
-      NonSettingsComp = CreateRequest;
-      break;
-    case 'ui-ill-ra-request-display':
-      NonSettingsComp = DisplayRequest;
-      break;
-    default:
-      return null;
+  if (data) {
+    switch (data.event) {
+      case 'ui-ill-ra-request-create':
+        NonSettingsComp = CreateRequest;
+        break;
+      case 'ui-ill-ra-request-display':
+        NonSettingsComp = DisplayRequest;
+        break;
+      default:
+        return null;
+    }
   }
 
   const Comp = actAs === 'settings' ? Settings : NonSettingsComp;

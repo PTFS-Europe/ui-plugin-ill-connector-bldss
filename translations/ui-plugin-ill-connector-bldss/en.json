@@ -26,5 +26,17 @@
   "messages.totalCost": "Total cost",
   "messages.copyrightState": "Copyright state",
   "messages.copyrightState.CFP": "Copyright fee paid",
-  "messages.estimatedDespatchDate": "Estimated dispatch date"
+  "messages.estimatedDespatchDate": "Estimated dispatch date",
+
+  "settings.apiSettings": "API settings",
+  "settings.generalSettings": "General settings",
+  "settings.libraryPrivilege": "Library privilege",
+  "settings.outsideUk": "Is outside UK",
+  "settings.apiUrl": "API URL",
+  "settings.apiKey": "API key",
+  "settings.apiKeyAuth": "API key auth",
+  "settings.apiApplication": "API application",
+  "settings.apiApplicationAuth": "API application auth",
+  "settings.eg": "e.g"
+
 }
