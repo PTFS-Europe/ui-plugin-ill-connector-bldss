@@ -1,6 +1,7 @@
 {
   "meta.title": "British Library Document Supply",
-  "createRequest.sent": "Sent request",
+  "createRequest.sentSuccess": "Sent request",
+  "createRequest.sentError": "Request sending failed",
   "createRequest.itemDetails": "Item details",
   "createRequest.serviceDetails": "Service details",
   "formats.speeds": "Available speeds",
@@ -14,6 +15,7 @@
   "messages.supplierRequestId": "British Library request ID",
   "messages.reasonForMessage": "Reason for update",
   "messages.reasonForMessage.RequestResponse": "Response to request",
+  "messages.reasonForMessage.CancelResponse": "Response to cancellation request",
   "messages.status": "Request status",
   "messages.status.RequestReceived": "Request received",
   "messages.lastChange": "Request last updated",
@@ -37,6 +39,10 @@
   "settings.apiKeyAuth": "API key auth",
   "settings.apiApplication": "API application",
   "settings.apiApplicationAuth": "API application auth",
-  "settings.eg": "e.g"
+  "settings.eg": "e.g",
 
+  "request.actions": "Request actions",
+  "request.action.cancel": "Cancel request",
+  "request.action.cancellationSentSuccess": "Request to cancel sent",
+  "request.action.cancellationSentError": "Request to cancel failed"
 }

@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl';
 
 import DisplayRequest from './components/DisplayRequest';
 import CreateRequest from './components/CreateRequest';
+import RequestActions from './components/RequestActions';
 import Settings from './settings';
 
 import { BACKEND } from './common/constants';
@@ -33,6 +34,9 @@ const Connector = (props) => {
         break;
       case 'ui-ill-ra-request-display':
         NonSettingsComp = DisplayRequest;
+        break;
+      case 'ui-ill-ra-request-actions':
+        NonSettingsComp = RequestActions;
         break;
       default:
         return null;

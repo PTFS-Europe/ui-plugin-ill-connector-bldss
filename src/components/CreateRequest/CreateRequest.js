@@ -39,9 +39,8 @@ const CreateRequest = (props) => {
   const [requestMetadata, setRequestMetadata] = useState();
   const [mutating, setMutating] = useState(false);
 
-  const showCallout = useShowCallout();
-
   const intl = useIntl();
+  const showCallout = useShowCallout();
 
   const { mutate: createLocalRequest } = useIllRaMutation({
     endpoint: 'requests'
@@ -92,14 +91,21 @@ const CreateRequest = (props) => {
           })
         };
         createSupplierRequest(payload, {
-          onSuccess: async (data) => {
+          onSuccess: () => {
             showCallout({
-              messageId: 'ui-plugin-ill-connector-bldss.createRequest.sent',
+              messageId: 'ui-plugin-ill-connector-bldss.createRequest.sentSuccess',
               type: 'success'
             });
             setModalOpen(false);
+          },
+          onError: () => {
+            showCallout({
+              messageId: 'ui-plugin-ill-connector-bldss.createRequest.sentError',
+              type: 'error'
+            });
+            setModalOpen(false);
           }
-        })
+        });
       }
     });
   };
