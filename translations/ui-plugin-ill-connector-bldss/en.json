@@ -18,6 +18,7 @@
   "messages.reasonForMessage.CancelResponse": "Response to cancellation request",
   "messages.status": "Request status",
   "messages.status.RequestReceived": "Request received",
+  "messages.status.Unfilled": "Request not filled",
   "messages.lastChange": "Request last updated",
   "messages.expectedDeliveryDate": "Expected delivery date",
   "messages.updateMessage": "Update message",
